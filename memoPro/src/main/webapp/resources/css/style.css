@@ -1,0 +1,5 @@
+@import "screens/login.css";
+@import "screens/join.css";
+html {
+	height: 100%;
+}
