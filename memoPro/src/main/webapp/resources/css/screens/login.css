@@ -19,8 +19,9 @@
 
 #login-form {
 	display: flex;
+	width: 200px;
 	flex-direction: column;
-	margin: 0px 120px;
+	margin: 0px auto;
 }
 
 #login-form input {
@@ -31,9 +32,13 @@
 }
 
 #login-form input:not([type="submit"]) {
-	border-bottom: 1.5px solid #4b280a;
+	border-bottom: 1.5px solid white;
 	transition: border-color .3s ease-in-out;
 	background-color: transparent;
+}
+
+#login-form input:not([type="submit"]):hover {
+	border-color: black;
 }
 
 #login-form input::placeholder {
@@ -48,7 +53,7 @@
 
 #login-form input[type="submit"] {
 	margin: auto;
-	width: 150px;
+	width: 140px;
 	margin-top: 10px;
 	margin-bottom: 15px;
 	border-radius: 20px;
@@ -59,11 +64,26 @@
 	padding: 20px 0px; 
 }
 
+#login-form input[type="submit"]:hover {
+	animation: beat 0.2s linear infinite;
+}
+
 #login-form a {
 	color: black;
 	text-align: center;
 	text-decoration: none;
 	font-size: 13px
+}
+
+@keyframes beat {
+	0% {
+	}
+	50% {
+		transform: rotate(1deg);
+	}
+	100% {
+		transform: rotate(-1deg);
+	}
 }
 
 
