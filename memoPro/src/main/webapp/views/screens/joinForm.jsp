@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -18,6 +19,14 @@
 		</form>
 		<div id="join_link">
 			<a href="loginPage.jsp">Go Back</a>
+		</div>
+		<div id="join_validation">
+			<% 
+			Object model = request.getAttribute("errors");
+			%>
+			<c:if test="${errors != null}">
+				<span>please write  your name and password</span>
+			</c:if>
 		</div>
 	</body>
 </html>

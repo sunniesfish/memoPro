@@ -1,5 +1,5 @@
 package command;
-//==================================path수정필요
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +12,7 @@ import model.service.JoinService;
 
 public class JoinHandler implements CommandHandler {
 	
-	private static final String FORM_VIEW = "/views/joinForm.jsp";
+	private static final String FORM_VIEW = "/views/screens/joinForm.jsp";
 	private JoinService joinService = new JoinService();
 	
 	@Override
@@ -27,14 +27,14 @@ public class JoinHandler implements CommandHandler {
 		}
 	}
 
-	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
+	private String processForm(HttpServletRequest req, HttpServletResponse res) {
 		return FORM_VIEW;
 	}
 
-	private String processForm(HttpServletRequest req, HttpServletResponse res) {
+	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
 		JoinRequest joinReq = new JoinRequest();
 		joinReq.setId(req.getParameter("userid"));
-		joinReq.setPassword("userpwd");
+		joinReq.setPassword(req.getParameter("userpwd"));
 		
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
@@ -47,7 +47,7 @@ public class JoinHandler implements CommandHandler {
 		
 		try {
 			joinService.join(joinReq);
-			return "";//==================onedaymemo=========
+			return "/views/screens/loginPage.jsp";
 		} catch (DuplicateIdException e) {
 			errors.put("duplicateId", Boolean.TRUE);
 		} return FORM_VIEW;

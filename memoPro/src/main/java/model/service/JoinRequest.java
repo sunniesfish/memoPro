@@ -5,6 +5,8 @@ import java.util.Map;
 public class JoinRequest {
 	private String id;
 	private String password;
+	
+	
 	public String getId() {
 		return id;
 	}

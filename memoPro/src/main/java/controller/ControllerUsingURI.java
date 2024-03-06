@@ -27,14 +27,14 @@ import command.NullHandler;
 				"*.do"
 		}, 
 		initParams = { 
-				@WebInitParam(name = "configFile", value = "../config/commandHandler.properties")
+				@WebInitParam(name = "configFile", value = "/WEB-INF/config/commandHandler.properties")
 		})
 public class ControllerUsingURI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private Map<String, CommandHandler> commandHandlerMap = new HashMap<>();
 	
-	public void init(ServletConfig config) throws ServletException {
+	public void init() throws ServletException {
 		String configFile = getInitParameter("configFile");
 		Properties prop = new Properties();
 		String configFilePath = getServletContext().getRealPath(configFile);
@@ -78,7 +78,9 @@ public class ControllerUsingURI extends HttpServlet {
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String command = request.getRequestURI();
 		if(command.indexOf(request.getContextPath())==0) { 
-			command = command.substring(request.getContextPath().length());
+			
+			String[] commandArr = command.split("/");
+			command = "/"+commandArr[commandArr.length-1];
 		}
 		CommandHandler handler = commandHandlerMap.get(command);
 		if(handler == null) {
