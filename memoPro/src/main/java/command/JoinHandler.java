@@ -47,7 +47,7 @@ public class JoinHandler implements CommandHandler {
 		
 		try {
 			joinService.join(joinReq);
-			return "/views/screens/loginPage.jsp";
+			return "/views/screens/joinSuccess.jsp";
 		} catch (DuplicateIdException e) {
 			errors.put("duplicateId", Boolean.TRUE);
 		} return FORM_VIEW;

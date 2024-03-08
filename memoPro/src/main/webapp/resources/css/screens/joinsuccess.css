@@ -1,0 +1,23 @@
+html {
+	background-color: black;
+}
+
+#join-success_body {
+	height: 100%;
+	padding: 0px;
+	background-color: transparent;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	
+}
+
+#join-success_div {
+}
+
+#join-success_div a{
+	color: white;
+	text-decoration: none;
+	font-size: 90px;
+	text-align: center;
+}

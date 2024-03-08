@@ -1,5 +1,6 @@
 @import "screens/login.css";
 @import "screens/join.css";
+@import "screens/joinsuccess.css";
 html {
-	height: 100%;
+	background-color: black;
 }

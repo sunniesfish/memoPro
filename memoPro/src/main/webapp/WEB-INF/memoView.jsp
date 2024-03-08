@@ -8,5 +8,13 @@
 </head>
 <body>
 	<h1>Memo</h1>
+	<form action="write.do">
+		<div>
+			<textarea name="content" rows="2" cols="30">
+				${modReq.content}
+			</textarea>
+		</div>
+		<div><input type="submit" value="save"></div>
+	</form>
 </body>
 </html>

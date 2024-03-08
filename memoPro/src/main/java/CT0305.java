@@ -1,29 +1,20 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class CT0305 {
 	public static void main(String[] args) {
 		
-		String polynomial = "3x + 7 + x";
+		String my_str = "abc1Addfggg4556b";
 		
-		String[] strArr = polynomial.split(" ");
+		List<String> list = new ArrayList();
 		
-		int xn = 0;
-		int n = 0;
-		for (int i=0; i<strArr.length; i++) {
-			strArr[i].trim();
-			if (strArr[i].contains("x")) {
-				if (strArr[i].equals("x")) {
-					xn += 1;
-				} else {
-					xn += Integer.parseInt(strArr[i].substring(0, strArr[i].length()-1));
-				}
-			} else if(!strArr[i].contains("+")){
-				n += Integer.parseInt(strArr[i]);
-			}
+		for (int i=0; i<my_str.length(); i+=6) {
+			list.add(my_str.substring(i,i+6));
 		}
 		
-		String answer =	 xn+"x + "+n;
+		String[] answer =list.toArray(new String[list.size()]);
 		
-		System.out.println(answer);
+		System.out.println(Arrays.toString(answer));
 	}
 }

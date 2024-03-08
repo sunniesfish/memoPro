@@ -60,7 +60,7 @@ public class LoginHandler extends HttpServlet implements CommandHandler {
 			req.getSession().setAttribute("authUser", user);
 			System.out.println(user.getId());
 			
-			res.sendRedirect(req.getContextPath()+"/WEB-INF/oneDayMemo.jsp");
+			res.sendRedirect(req.getContextPath()+"/view.do");
 //			res.sendRedirect(req.getContextPath()+"/oneDayMemo.jsp");
 			return null; // 로그인 서비스를 호출하여 로그인, 세션의 로그인 정보 저장, MAIN으로 이동
 		} catch (LoginFailException e) { //ID PWD가 맞지 않을 경우 로그인 페이지로 되돌아감
