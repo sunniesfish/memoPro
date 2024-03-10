@@ -1,18 +1,18 @@
 package command;
-
+//================================================================기능은 구현
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.User;
 import model.service.ViewService;
 import model.service.WriteRequest;
 import vo.Line;
 import vo.Memo;
+import vo.User;
 
 /*
- *  세션에 memo객체와 lineSet객체를 저장
+ *  req에 memo객체와 lineSet객체를 저장
  */
 
 public class ViewHandler implements CommandHandler {
@@ -40,25 +40,25 @@ public class ViewHandler implements CommandHandler {
 	}
 	
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
-		
 		String memoid = (String) req.getSession().getAttribute("memoid");
-		User user = (User) req.getSession().getAttribute("AuthUser");
+		
+		User user = (User) req.getSession().getAttribute("authUser");
 		String userid = user.getId();
-		//=================memberid에 따른 member 객체를 세션에 저장
-		//=================memberid="1"인 경우는 oneDayMemo
+
 		
 		try {
-			if (memoid == null) {
+			if (memoid == null) {//==================??????
 				Memo memo = viewService.view(userid, memoid);
 			}
 
 			Memo memo = viewService.view(userid, memoid);
 			Set lineset = memo.getLineSet();
-			req.getSession().setAttribute("memo", memo);
-			req.getSession().setAttribute("lineSet",lineset);
+			req.setAttribute("memo", memo);
+			req.setAttribute("lineSet",lineset);
 			
-			res.sendRedirect(req.getContextPath()+"/WEB-INF/memoView.jsp");
-			return null;
+			
+//			res.sendRedirect(req.getContextPath()+"/views/screens/memoView.jsp");
+			return "/views/screens/memoView.jsp";
 		}catch (Exception e) {
 			return FORM_VIEW;
 		}

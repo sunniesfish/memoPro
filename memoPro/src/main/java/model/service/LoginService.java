@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.MemberDao;
-import model.User;
 import vo.Member;
+import vo.User;
 
 // Map을 이용해서 임시로 구현
 public class LoginService {

@@ -1,5 +1,5 @@
 package command;
-
+//==============================================================완료
 import java.util.HashMap;
 
 import java.util.Map;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.service.LoginFailException;
 import model.service.LoginService;
-import model.User;
+import vo.User;
 
 @WebServlet("/LoginHandler")
 public class LoginHandler extends HttpServlet implements CommandHandler {
@@ -53,16 +53,15 @@ public class LoginHandler extends HttpServlet implements CommandHandler {
 		}
 		
 		try {
-			System.out.println("=== try ===");//=============================================
 			System.out.println("befor loginService id : "+id+"  pwd : "+password);//========================
+			
 			User user = loginService.login(id, password);
 			
 			req.getSession().setAttribute("authUser", user);
-			System.out.println(user.getId());
+			req.getSession().setAttribute("memoid", "todaysmemo");
+			System.out.println("session - userid : "+user.getId());
 			
-			res.sendRedirect(req.getContextPath()+"/view.do");
-//			res.sendRedirect(req.getContextPath()+"/oneDayMemo.jsp");
-			return null; // 로그인 서비스를 호출하여 로그인, 세션의 로그인 정보 저장, MAIN으로 이동
+			return "/view.do"; // 로그인 서비스를 호출하여 로그인, 세션의 로그인 정보 저장, MAIN으로 이동
 		} catch (LoginFailException e) { //ID PWD가 맞지 않을 경우 로그인 페이지로 되돌아감
 			errors.put("idOrPwNotMatch", Boolean.TRUE);
 			return FORM_VIEW;

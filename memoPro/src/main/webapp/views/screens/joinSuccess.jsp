@@ -9,7 +9,7 @@
 	</head>
 	<body id="join-success_body">
 		<div id="join-success_div">
-			<form action="goOMemo.do" method="post">
+			<form action="loginPage.jsp" method="post">
 				<input type="submit" value="Welcome!">
 			</form>
 		</div>

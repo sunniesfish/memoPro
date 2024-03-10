@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.User;
 import model.service.JoinService;
 import model.service.WriteRequest;
+import vo.User;
 
 
 @WebServlet("/write.do")

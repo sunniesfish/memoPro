@@ -17,6 +17,11 @@ public class MemoDao {
 			memo = new Memo(memoid)
 		}
 */		
+		// 임시로 구현 ================================
+		memo = new Memo ("todaysmemo");
+		
+		//========================================
+		
 		return memo;
 	}
 	
