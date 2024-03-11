@@ -53,10 +53,7 @@ public class LoginHandler extends HttpServlet implements CommandHandler {
 		}
 		
 		try {
-			System.out.println("befor loginService id : "+id+"  pwd : "+password);//========================
-			
 			User user = loginService.login(id, password);
-			
 			req.getSession().setAttribute("authUser", user);
 			req.getSession().setAttribute("memoid", "todaysmemo");
 			System.out.println("session - userid : "+user.getId());

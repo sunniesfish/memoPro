@@ -1,6 +1,7 @@
 @import "screens/login.css";
 @import "screens/join.css";
 @import "screens/joinsuccess.css";
+@import "screens/view.css";
 html {
 	background-color: black;
 }

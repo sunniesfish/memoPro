@@ -12,10 +12,11 @@ import vo.Memo;
 
 public class ViewService {
 	
-	MemoDao memoDao = new MemoDao();
+	MemoDao memoDao = new MemoDao();	
 	
 	public Memo view(String userid, String memoid) {
 		try {
+			
 			Memo memo = memoDao.selectByMemoId(userid, memoid);
 			return memo;
 		}catch (SQLException e) {

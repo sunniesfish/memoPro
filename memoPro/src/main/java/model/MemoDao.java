@@ -1,9 +1,11 @@
 package model;
-
+//===========================DB연동필요========
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
+import vo.Line;
 import vo.Memo;
 
 public class MemoDao {
@@ -19,9 +21,7 @@ public class MemoDao {
 */		
 		// 임시로 구현 ================================
 		memo = new Memo ("todaysmemo");
-		
 		//========================================
-		
 		return memo;
 	}
 	

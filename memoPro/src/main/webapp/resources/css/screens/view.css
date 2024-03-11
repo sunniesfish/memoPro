@@ -1,0 +1,44 @@
+.view_body {
+	margin: 5vh 8vw 5vh 8vw;
+}
+
+.view_header {
+	display: flex;
+}
+
+.view_goList-button {
+	display: flex;
+	width: 15vw;
+	color: black;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 5vw;
+}
+.view_goList-button a{
+	width: 3vw;
+}
+
+.view_memo-title {
+	display:flex;
+	justify-content: center;
+	padding-right: 15vw;
+	width: 85vw;
+	font-size: 20px;
+}
+
+.view_contents {
+	display: block;
+	heigth:100%;
+}
+
+.view_contents_line {
+	display: flex;
+	justify-content:center;
+	width: 100%;
+	margin: 0 8vw 0 8vw;
+	border-bottom: 1.5px solid black;
+}
+.view_contents_textarea {
+	border:none;
+	width: 55vw;
+}
