@@ -1,10 +1,13 @@
 package command;
+import java.util.HashMap;
+import java.util.Map;
 //================================================================기능은 구현
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.service.LineService;
 import model.service.ViewService;
 import vo.Line;
 import vo.Memo;
@@ -19,7 +22,7 @@ public class ViewHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/logout.do";
 	
 	private ViewService viewService = new ViewService();
-	
+	private LineService lineService = new LineService();
 	
 
 	@Override
@@ -39,6 +42,8 @@ public class ViewHandler implements CommandHandler {
 	}
 	
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("ViewHandler proccessSubmit 호출 ==========================");
+		
 		String memoid = (String) req.getSession().getAttribute("memoid");
 		User user = (User) req.getSession().getAttribute("authUser");
 		
@@ -52,16 +57,21 @@ public class ViewHandler implements CommandHandler {
 		
 		try {
 			Memo memo = viewService.view(userid, memoid);
-			
-			Set<Line> lineset = memo.getLineSet();
-			if (lineset.isEmpty()) {
-				lineset.add(new Line(memoid));
+			HashMap<String,Line> lineMap = memo.getLineMap();
+			System.out.println("lineMap.isEmpty : " +lineMap.isEmpty());//////////////////////////////////
+			if (lineMap.isEmpty()) {
+				Line line = new Line(memoid);
+				lineMap.put(line.getLineid(), line);
 			}
+			HashMap<String,String> contentsMap = lineService.lineDistribute(lineMap);
+			
+			
 			
 			req.setAttribute("memo", memo);
-			req.setAttribute("lineSet",lineset);
+			req.setAttribute("linemap",lineMap);
+			req.setAttribute("contentsmap", contentsMap);
 			
-			
+			System.out.println("View Handler 완료========================");
 			return "/views/screens/memoView.jsp";
 		}catch (Exception e) {
 			return FORM_VIEW;

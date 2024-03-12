@@ -5,19 +5,17 @@
 .view_header {
 	display: flex;
 }
-
 .view_goList-button {
 	display: flex;
 	width: 15vw;
 	color: black;
 	flex-direction: column;
 	justify-content: center;
-	margin-left: 5vw;
+	padding-left: 5vw;
 }
 .view_goList-button a{
 	width: 3vw;
 }
-
 .view_memo-title {
 	display:flex;
 	justify-content: center;
@@ -26,19 +24,27 @@
 	font-size: 20px;
 }
 
-.view_contents {
-	display: block;
-	heigth:100%;
-}
 
+.view_contents {
+	display: flex;
+	heigth:100%;
+	flex-direction: column;
+}
 .view_contents_line {
 	display: flex;
-	justify-content:center;
-	width: 100%;
-	margin: 0 8vw 0 8vw;
+	margin: 0 15%;
+	width: auto;
+	align-items:center;
+	flex-direction:row;
 	border-bottom: 1.5px solid black;
 }
 .view_contents_textarea {
-	border:none;
-	width: 55vw;
+	display: flex;
+	border: none;
+	width: 100%;
+}
+.view_contents_save_button {
+	width: 20%;
+	display: flex;
+	justify-content: flex-end;
 }

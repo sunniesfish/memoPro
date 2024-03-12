@@ -9,7 +9,7 @@ public class Line {
 	private String lineid;
 	private String content;
 	
-	public Line(String memoid, String lineid, String content) {
+	public Line(String memoid, String lineid, String content) {//======필요없는 생성자 없애야됌
 		this.memoid = memoid;
 		this.lineid = lineid;
 		this.content = content;
