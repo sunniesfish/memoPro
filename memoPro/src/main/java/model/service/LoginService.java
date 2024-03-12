@@ -16,7 +16,7 @@ public class LoginService {
 	public User login(String id, String password) {
 		try {
 			Member member = memberDao.selectById(id);
-			System.out.println(member.getId()); //===========================
+//			System.out.println(member.getId()); //===========================
 			if(member == null) {
 				throw new LoginFailException();
 			}

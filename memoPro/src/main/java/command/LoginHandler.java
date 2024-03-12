@@ -22,7 +22,7 @@ public class LoginHandler extends HttpServlet implements CommandHandler {
        
 	@Override
     public String process(HttpServletRequest req, HttpServletResponse res) throws Exception { 
-		System.out.println("login handler process() invoked"); //===================================
+//		System.out.println("login handler process() invoked"); //===================================
 		if(req.getMethod().equalsIgnoreCase("GET")) {
 			return processForm(req,res);
 		} else if (req.getMethod().equalsIgnoreCase("POST")) {
@@ -40,7 +40,7 @@ public class LoginHandler extends HttpServlet implements CommandHandler {
 		String id = trim(req.getParameter("userid"));
 		String password = trim(req.getParameter("userpwd"));
 		
-		System.out.println("login attempt "+id+" : "+password); //====================================
+//		System.out.println("login attempt "+id+" : "+password); //====================================
 		
 		Map<String, Boolean> errors = new HashMap<>(); //ERROR MAP
 		req.setAttribute("errors", errors);
@@ -56,7 +56,7 @@ public class LoginHandler extends HttpServlet implements CommandHandler {
 			User user = loginService.login(id, password);
 			req.getSession().setAttribute("authUser", user);
 			req.getSession().setAttribute("memoid", "todaysmemo");
-			System.out.println("session - userid : "+user.getId());
+//			System.out.println("session - userid : "+user.getId());
 			
 			return "/view.do"; // 로그인 서비스를 호출하여 로그인, 세션의 로그인 정보 저장, MAIN으로 이동
 		} catch (LoginFailException e) { //ID PWD가 맞지 않을 경우 로그인 페이지로 되돌아감

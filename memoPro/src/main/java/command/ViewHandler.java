@@ -49,7 +49,6 @@ public class ViewHandler implements CommandHandler {
 		
 		String userid = user.getId();
 		
-		// line id가 이미 있는 경우는?
 		System.out.println("memoid : "+memoid);
 		System.out.println("userid : "+userid);
 		

@@ -26,8 +26,8 @@ public class MemberDao {
 		regDateMap.put("a", date);
 		//==========================================
 		
-		System.out.println(memberMap);
-		System.out.println(regDateMap);
+//		System.out.println(memberMap);
+//		System.out.println(regDateMap);
 		Member member = null;
 		if (idSet.contains(id)) {
 			member = new Member(
@@ -51,7 +51,7 @@ public class MemberDao {
 			regDateMap.put(mem.getId(), toDate());
 		}catch (Exception e) {
 		}
-		System.out.println(memberMap);
+//		System.out.println(memberMap);
 	}
 }
  

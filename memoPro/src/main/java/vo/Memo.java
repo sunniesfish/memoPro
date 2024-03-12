@@ -50,7 +50,7 @@ public class Memo {
 		//////////////
 		//=========================
 		HashSet lineSet = new HashSet();
-		lineSet.add(new Line(memoid, "content(임시)"));
+		lineSet.add(new Line(memoid,"lineid(임시)","content(임시)"));
 		
 		Iterator lineIter = lineSet.iterator();
 		

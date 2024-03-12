@@ -21,9 +21,6 @@
 			<a href="loginPage.jsp">Go Back</a>
 		</div>
 		<div id="join_validation">
-			<% 
-			Object model = request.getAttribute("errors");
-			%>
 			<c:if test="${errors != null}">
 				<span>please write  your name and password</span>
 			</c:if>

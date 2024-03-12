@@ -1,5 +1,6 @@
 .view_body {
 	margin: 5vh 8vw 5vh 8vw;
+	height: 80hw;
 }
 
 .view_header {
@@ -38,13 +39,23 @@
 	flex-direction:row;
 	border-bottom: 1.5px solid black;
 }
-.view_contents_textarea {
-	display: flex;
+.view_contents_text {
+	width : 40vw;
+	padding : 0 25px;
 	border: none;
-	width: 100%;
+	font-size: 20px;
+	font-weight: 500;
+	font-family: inherit;
 }
-.view_contents_save_button {
-	width: 20%;
-	display: flex;
-	justify-content: flex-end;
+.view_contents_save-button {
+	background-color:transparent;
+	color:white;
+	border: none;
+	cursor:pointer;
+    font-size: 15px;
+    border-radius: 5px;
+	margin-left: 20px;
+}
+.view_contents_save-button:hover {
+	color: gray;
 }

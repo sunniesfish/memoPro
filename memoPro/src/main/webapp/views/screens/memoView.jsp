@@ -5,8 +5,6 @@
 <%@ page import="vo.Memo" %>
 <%@ page import="vo.Line" %>
 
-<!-- 로그인 할 때마다 Line 추가되는 버그 있음  -->
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -15,13 +13,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<link rel="stylesheet" href="../../resources/css/style.css"/>
 	</head>
-	<%
-	Memo memo = (Memo) request.getAttribute("memo");
-	
-	HashMap<String,Line> lineMap = (HashMap) request.getAttribute("linemap");
-	HashMap<String,String> contentsMap = (HashMap) request.getAttribute("contentsmap");
-	
-	%>
 	<body class="view_body">
 		<header class="view_header">
 			<div class="view_goList-button">
@@ -44,9 +35,7 @@
 			<c:forEach var="entry" items="${contentsmap}">
 				<div class="view_contents_line">
 					<form action="write.do" method="post" name="" >
-						<textarea class="view_contents_textarea" rows="2" cols="30">
-							<c:out value="${entry.value}"></c:out>
-						</textarea>
+						<input class="view_contents_text" name="" type="text" value="${entry.value}"/>
 						<input class="view_contents_save-button" type="submit" value="SAVE">
 					</form>
 				</div>
