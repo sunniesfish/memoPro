@@ -1,5 +1,6 @@
 package vo;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,15 +15,25 @@ import model.LineDao;
 
 public class Memo {
 	
+	private String userid;
 	private String memoid;
-	private HashMap<String,Line> lineMap = new HashMap();
+	private Line line;
 	
 	private LineDao lineDao = new LineDao();
+	private HashMap<String,Line> lineMap = new HashMap();
 	
 	
-	public Memo(String memoid) {
+	public Memo(String userid) throws SQLException {
+		this.userid=userid;
+		setMemoid();
+		String lineid = lineDao.newLine(new Line(memoid));
+		this.line = lineDao.selectByLineId(memoid, lineid);
+	}
+	
+	public Memo(String userid, String memoid, String lineid) throws SQLException {
+		this.userid = userid;
 		this.memoid = memoid;
-		setLineMap(memoid);
+		this.line = lineDao.selectByLineId(memoid, lineid);
 	}
 	
 
@@ -35,34 +46,21 @@ public class Memo {
 		this.memoid = sdf.format(new Date(now)).toString();
 	}
 	
+	public Line getLine() {
+		return line;
+	}
+	public void setLine(Line line) {
+		this.line = line;
+	}
+	
 
 	public HashMap getLineMap() {
 		return lineMap;
 	}
 	
-	public void setLineMap(String memoid) {
-		
-		System.out.println("Memo - setLineMap() invoked======================");
-		
-		
-		//line에 대해 hasNext 문 이용해서 lineSet에 line할당
-		// lineDao.SelectByLineId(memoid, iter값 ); 을 사용
-		//////////////
-		//=========================
-		HashSet lineSet = new HashSet();
-		lineSet.add(new Line(memoid,"lineid(임시)","content(임시)"));
-		
-		Iterator lineIter = lineSet.iterator();
-		
-		for (Object l : lineSet) {
-			Line line = (Line) l;
-			lineMap.put(line.getLineid(),line);
-			System.out.println("memoid : "+line.getMemoid());////////////////////////////////////
-			System.out.println("lineid : "+line.getLineid());//////////////////////////////////////////
-			System.out.println( "linecontent : "+line.getContent() );////////////////////////////////
-		}
-		
-		System.out.println("setLineMap method end======================");
+	
+	public void setLineMap() {
+		lineMap.put(line.getLineid(), line);
 	}
 	
 }

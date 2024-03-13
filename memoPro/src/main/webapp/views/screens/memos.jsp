@@ -9,40 +9,38 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>memoView</title>
+		<title>memos</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<link rel="stylesheet" href="../../resources/css/style.css"/>
 	</head>
-	<body class="view_body">
-		<header class="view_header">
-			<div class="view_goList-button">
+	<body class="memos_body">
+		<header class="memos_header">
+			<div class="memos_goList-button">
 				<a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></a>
 			</div>
-			<div class="view_memo-title">
+			<div class="memos_memo-title">
 				<h1>
 					<c:choose>
 						<c:when test="${memoid eq 'todaysmemo'}">
 							Today's Memo
 						</c:when>
 						<c:otherwise>
-							${memoid}
+							Memo
 						</c:otherwise>
 					</c:choose>
 				</h1>
 			</div>
 		</header>
-		<div class="view_contents">
+		<div class="memos_contents">
 			<c:forEach var="entry" items="${contentsmap}">
-				<div class="view_contents_line">
-					<form action="write.do" method="post" name="linecontent" >
-						<input class="view_contents_text" name="" type="text" value="${entry.value}"/>
+				<div class="memos_contents_line">
+					<form action="write.do" method="post" name="" >
+						<input class="memos_contents_text" name="" type="text" value="${entry.value}"/>
+						<input class="memos_contents_save-button" type="submit" value="SAVE">
 					</form>
 				</div>
 			</c:forEach>
 		</div>
-		<c:forEach var="entry" items="${linemap}">
-			<c:set scope="session" var="lineid" value="${entry.key}"/>
-		</c:forEach> <!-- linemap안의 entry가 2개 이상일 때는 수정필요 -->
 		<script src="https://kit.fontawesome.com/9e2cfcdf3a.js" crossorigin="anonymous"></script>
 	</body>
 </html>

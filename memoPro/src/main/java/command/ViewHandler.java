@@ -1,4 +1,6 @@
 package command;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 //================================================================기능은 구현
@@ -42,26 +44,17 @@ public class ViewHandler implements CommandHandler {
 	}
 	
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
-		System.out.println("ViewHandler proccessSubmit 호출 ==========================");
 		
 		String memoid = (String) req.getSession().getAttribute("memoid");
 		User user = (User) req.getSession().getAttribute("authUser");
 		
 		String userid = user.getId();
 		
-		System.out.println("memoid : "+memoid);
-		System.out.println("userid : "+userid);
-		
-		
 		
 		try {
 			Memo memo = viewService.view(userid, memoid);
+			memo.setLineMap();
 			HashMap<String,Line> lineMap = memo.getLineMap();
-			System.out.println("lineMap.isEmpty : " +lineMap.isEmpty());//////////////////////////////////
-			if (lineMap.isEmpty()) {
-				Line line = new Line(memoid);
-				lineMap.put(line.getLineid(), line);
-			}
 			HashMap<String,String> contentsMap = lineService.lineDistribute(lineMap);
 			
 			
@@ -70,7 +63,7 @@ public class ViewHandler implements CommandHandler {
 			req.setAttribute("linemap",lineMap);
 			req.setAttribute("contentsmap", contentsMap);
 			
-			System.out.println("View Handler 완료========================");
+			
 			return "/views/screens/memoView.jsp";
 		}catch (Exception e) {
 			return FORM_VIEW;

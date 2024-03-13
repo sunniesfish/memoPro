@@ -9,22 +9,17 @@ public class Line {
 	private String lineid;
 	private String content;
 	
-	public Line(String memoid, String lineid, String content) {//======필요없는 생성자 없애야됌
+	public Line(String memoid, String lineid, String content) {
 		this.memoid = memoid;
 		this.lineid = lineid;
 		this.content = content;
 	}
-	public Line(String memoid,  String content) {
-		this.memoid = memoid;
-		this.content = content;
-		setLineid();
-	}
+
 	public Line(String memoid) {
 		this.memoid = memoid;
 		this.content = "";
 		setLineid();
 	}
-	
 	
 	public String getMemoid() {
 		return memoid;

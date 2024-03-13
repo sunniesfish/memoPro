@@ -12,9 +12,7 @@ import vo.Line;
 public class LineDao {
 	
 	public Line selectByLineId(String memoid, String lineid) throws SQLException {
-		
 		Line line = null;
-		
 /*
 		if ( db에서 memoid속성이 'memoid'이면서 lineid속성이 'lineid'인 경우) {
 			
@@ -25,14 +23,19 @@ public class LineDao {
 			)
 	
  */
+		//////임시로 생성
+		if (memoid.equals("todaysmemo") && lineid.equals("samplelineid")) {
+			line = new Line(memoid,lineid,"ContentContentContentContent");
+		}/////////db연동시 삭제
 		return line;
 	}
 	
-	public void newLine(Line line) throws SQLException {
+	public String newLine(Line line) throws SQLException {
 		try {
 			//Db에 Line 객체 삽입
 		} catch (Exception e) {
 		}
+		return line.getLineid();
 	}
 	
 }

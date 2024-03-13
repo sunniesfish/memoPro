@@ -6,20 +6,25 @@ import model.LineDao;
 
 public class WriteService {
 	
-	private LineDao lineDao = new LineDao();
+	
 	
 	public void write(WriteRequest writeReq) {
+		
+		String memoid = writeReq.getMemoid();
+		// Line 구조 수정 필요 1 memo-1line
+		
+		
 		try {
-			MemoContent memoContent = ContentDao.########();
-			if (memoContent != null) {
-				 = memoContent.getContent();
-				
-			} else {
-				contentDao.newMemo(new MemoContent(writeReq.getContent()));
-			}
-		}catch (SQLException  e) {
+			
+			throw new //??ㅁㄹ
+			
+			
+		} catch (SQLException  e) {
+			//rollback 필요?
 			throw new RuntimeException();
 		}
+		
+		
 	}
 
 }

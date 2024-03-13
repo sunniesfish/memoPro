@@ -15,7 +15,7 @@
 		<form id="join-form" action="join.do" method="post" >
 			<input name="userid" type="text" placeholder="Name"/>
 			<input name="userpwd" type="password" placeholder="Password"/>
-			<input name="" type="submit" value="Submit"/>
+			<input type="submit" value="Submit"/>
 		</form>
 		<div id="join_link">
 			<a href="loginPage.jsp">Go Back</a>
