@@ -34,7 +34,7 @@
 		<div class="view_contents">
 			<c:forEach var="entry" items="${contentsmap}">
 				<div class="view_contents_line">
-					<form action="write.do" method="post" name="linecontent" >
+					<form action="write.do" method="post" name="content" >
 						<input class="view_contents_text" name="" type="text" value="${entry.value}"/>
 					</form>
 				</div>

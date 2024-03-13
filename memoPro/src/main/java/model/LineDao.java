@@ -38,4 +38,16 @@ public class LineDao {
 		return line.getLineid();
 	}
 	
+	public void writeLine(String memoid ,String lineid, String content) throws SQLException{
+		try {
+			/*
+			 *DB에 연결하여 contents를 update
+			 * 
+			 */
+			Line line = new Line(memoid ,lineid, content);
+		} finally {
+			// finally 문이 필요한가?
+		}
+	}
+	
 }
