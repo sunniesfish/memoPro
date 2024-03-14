@@ -1,14 +1,38 @@
 package command;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 //=============================================================================¹Ì±¸Çö
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class GoListHandler implements CommandHandler {
+import model.service.GoListService;
+import vo.User;
 
+public class GoListHandler implements CommandHandler {
+	private static final String FORM_VIEW = "/logout.do";
+	
+	private GoListService goListService = new GoListService();
+	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		User user = (User) req.getSession().getAttribute("authUser");
+		
+		Map<String, Boolean> errors = new HashMap<>(); //ERROR MAP
+		req.setAttribute("errors",errors);
+		
+		if (user == null) {errors.put("user", Boolean.TRUE);}
+		if(!errors.isEmpty()) {
+			return FORM_VIEW;
+		}
+		
+		String userid =user.getId();
+		req.getSession().removeAttribute("memoid");
+		
+		List<String> memoList = goListService.bringList(userid);
+		req.setAttribute("memolist",memoList);
+		System.out.println(memoList.toString());
+		return "/views/screens/memos.jsp";
 	}
-
 }

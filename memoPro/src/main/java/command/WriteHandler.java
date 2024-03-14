@@ -45,18 +45,23 @@ public class WriteHandler extends HttpServlet implements CommandHandler {
 		String lineid = (String) req.getSession().getAttribute("lineid");
 		String content = (String) req.getAttribute("content");
 		
+		System.out.println("writehandler start==========================");
+		System.out.println("memoid : "+memoid);
+		System.out.println("lineid : "+lineid);
+		System.out.println("content : "+content);
+		
 		Map<String, Boolean> errors = (Map<String, Boolean>) req.getAttribute("errors");
 		
 		WriteRequest writeReq = new WriteRequest();
 		writeReq.setMemoid(memoid);
 		writeReq.setLineid(lineid);
 		writeReq.setContent(content);
-		
-		try {
+//		try {
 			writeService.write(writeReq);
+			System.err.println("writehandler end============================");
 			return "/view.do";
-		} catch (Exception e) {
-			errors.put("writingFail",Boolean.TRUE);
-		} return FORM_VIEW;
+//		} catch (Exception e) {
+//			errors.put("writingFail",Boolean.TRUE);
+//		} return FORM_VIEW;
 	}
 }

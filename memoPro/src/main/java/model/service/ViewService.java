@@ -19,10 +19,12 @@ public class ViewService {
 	public Memo view(String userid, String memoid) {
 		try {
 			Memo memo = null;
-			if (memoid==null) {
+			if (memoid==null || memoid.equals("")) {
 				memoid = memoDao.newMemo(new Memo(userid));
 			}
+			System.out.println("viewservice memoid : "+memoid);
 			memo = memoDao.selectByMemoId(userid, memoid);
+			System.out.println("memoid : "+memo.getMemoid());
 			return memo;
 		}catch (SQLException e) {
 			throw new RuntimeException(e);

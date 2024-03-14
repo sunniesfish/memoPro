@@ -55,7 +55,7 @@ public class LoginHandler extends HttpServlet implements CommandHandler {
 		try {
 			User user = loginService.login(id, password);
 			req.getSession().setAttribute("authUser", user);
-			req.getSession().setAttribute("memoid", "todaysmemo");
+			req.getSession().setAttribute("memoid", "1");
 //			System.out.println("session - userid : "+user.getId());
 			
 			return "/view.do"; // 로그인 서비스를 호출하여 로그인, 세션의 로그인 정보 저장, MAIN으로 이동

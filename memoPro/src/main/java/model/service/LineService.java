@@ -17,7 +17,6 @@ public class LineService {
 			String lineid = lineEntry.getKey();
 			Line line = lineEntry.getValue();
 			contentsMap.put(lineid, line.getContent());
-			System.out.println("LineService : lineid : "+lineid);
 		}
 		return contentsMap;
 	}

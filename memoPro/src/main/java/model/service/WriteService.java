@@ -14,6 +14,7 @@ public class WriteService {
 		String lineid = writeReq.getLineid();
 		String content = writeReq.getContent();
 
+		
 		try {
 			lineDao.writeLine(memoid, lineid, content);
 			

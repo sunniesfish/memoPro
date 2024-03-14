@@ -24,18 +24,20 @@ public class LineDao {
 	
  */
 		//////임시로 생성
-		if (memoid.equals("todaysmemo") && lineid.equals("samplelineid")) {
+		if (memoid.equals("1") ) {
 			line = new Line(memoid,lineid,"ContentContentContentContent");
-		}/////////db연동시 삭제
+		} else {
+			line = new Line (memoid);
+		}
+		/////////db연동시 삭제
 		return line;
 	}
 	
 	public String newLine(Line line) throws SQLException {
-		try {
 			//Db에 Line 객체 삽입
-		} catch (Exception e) {
-		}
-		return line.getLineid();
+		System.out.println("newline");
+		String lineid = line.getLineid();
+		return lineid;
 	}
 	
 	public void writeLine(String memoid ,String lineid, String content) throws SQLException{
@@ -45,8 +47,8 @@ public class LineDao {
 			 * 
 			 */
 			Line line = new Line(memoid ,lineid, content);
-		} finally {
-			// finally 문이 필요한가?
+			System.out.println("writeLine");
+		}catch (Exception e) {
 		}
 	}
 	

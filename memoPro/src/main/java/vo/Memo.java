@@ -24,12 +24,19 @@ public class Memo {
 	
 	
 	public Memo(String userid) throws SQLException {
+		System.out.println("memo cons");
 		this.userid=userid;
 		setMemoid();
 		String lineid = lineDao.newLine(new Line(memoid));
 		this.line = lineDao.selectByLineId(memoid, lineid);
 	}
 	
+	public Memo(String userid, String memoid) throws SQLException {
+		this.userid = userid;
+		this.memoid = memoid;
+		String lineid = lineDao.newLine(new Line(memoid));
+		this.line = lineDao.selectByLineId(memoid, lineid);
+	}
 	public Memo(String userid, String memoid, String lineid) throws SQLException {
 		this.userid = userid;
 		this.memoid = memoid;
@@ -60,6 +67,7 @@ public class Memo {
 	
 	
 	public void setLineMap() {
+		System.out.println("setlinmap");
 		lineMap.put(line.getLineid(), line);
 	}
 	

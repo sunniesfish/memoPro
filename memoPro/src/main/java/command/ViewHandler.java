@@ -30,7 +30,7 @@ public class ViewHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if (req.getMethod().equalsIgnoreCase("GET")) {
-			return processForm(req, res);
+			return processSubmit(req, res);
 		} else if (req.getMethod().equalsIgnoreCase("POST")) {
 			return processSubmit(req, res);
 		} else {
@@ -38,29 +38,38 @@ public class ViewHandler implements CommandHandler {
 			return null;
 		}
 	}
-	
-	private String processForm(HttpServletRequest req, HttpServletResponse res) {
-		return FORM_VIEW;
-	}
-	
+
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
 		
 		String memoid = (String) req.getSession().getAttribute("memoid");
 		User user = (User) req.getSession().getAttribute("authUser");
 		
+		Map<String, Boolean> errors = new HashMap<>(); //ERROR MAP
+		req.setAttribute("errors",errors);
+		
+		if (user == null) {errors.put("user", Boolean.TRUE);}
+		if(!errors.isEmpty()) {
+			return FORM_VIEW;
+		}
+		
+		
+		
 		String userid = user.getId();
 		
+		System.out.println("ViewHandler ======= userid : "+userid);
+		System.out.println("ViewHandler ======= memoid : "+memoid);
 		
 		try {
 			Memo memo = viewService.view(userid, memoid);
+			System.out.println("vvvvv");
+			System.out.println(memo.getMemoid()+" ; ");
 			memo.setLineMap();
 			HashMap<String,Line> lineMap = memo.getLineMap();
 			HashMap<String,String> contentsMap = lineService.lineDistribute(lineMap);
 			
 			
-			
 			req.setAttribute("memo", memo);
-			req.setAttribute("linemap",lineMap);
+			req.setAttribute("linemap",lineMap);	
 			req.setAttribute("contentsmap", contentsMap);
 			
 			

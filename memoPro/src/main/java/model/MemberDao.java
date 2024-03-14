@@ -4,8 +4,10 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,8 +28,7 @@ public class MemberDao {
 		regDateMap.put("a", date);
 		//==========================================
 		
-//		System.out.println(memberMap);
-//		System.out.println(regDateMap);
+
 		Member member = null;
 		if (idSet.contains(id)) {
 			member = new Member(
@@ -51,7 +52,18 @@ public class MemberDao {
 			regDateMap.put(mem.getId(), toDate());
 		}catch (Exception e) {
 		}
-//		System.out.println(memberMap);
+	}
+	
+	public List getMemoList(String userid) throws SQLException {
+//		try {
+			/*
+			 * DB에서 userid를 통해 memoid를 가져옴
+			 */
+			List<String> memoList = new ArrayList();// db연결 후 수정
+			memoList.add("1");// db연결 후 수정
+//		} catch (Exception e) {
+//		}
+		return memoList;
 	}
 }
  

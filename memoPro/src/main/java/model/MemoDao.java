@@ -20,17 +20,27 @@ public class MemoDao {
 		}
 */		
 		// 임시로 구현 ================================
-		memo = new Memo (userid,memoid,"samplelineid");
+		if (memoid.equals("1")) {
+			memo = new Memo (userid,memoid);
+			
+			System.out.println("==sbm== case 1" + memo.getLine().getLineid());
+		} else {
+			memo = new Memo (userid);
+			String lineid = memo.getLine().getLineid();
+			System.out.println("userid : "+userid+" memoid : "+memo.getMemoid()+" lineid : "+lineid);
+		}
+		
 		//========================================
 		return memo;
 	}
 	
 	public String newMemo(Memo memo) throws SQLException {
-		try {
+//		try {
 			// Db에 메모 개체 삽입
-		}catch (Exception e) {
-		}
-		return memo.getMemoid();
+			String memoid = memo.getMemoid();
+//		}catch (Exception e) {
+//		}
+		return memoid;
 	}
 	
 	

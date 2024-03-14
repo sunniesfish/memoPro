@@ -19,6 +19,7 @@ public class Line {
 		this.memoid = memoid;
 		this.content = "";
 		setLineid();
+		System.out.println("set lineid");
 	}
 	
 	public String getMemoid() {
@@ -29,6 +30,7 @@ public class Line {
 	}
 	
 	public String getLineid() {
+		System.out.println("getlienid");
 		return lineid;
 	}
 	public void setLineid() {
