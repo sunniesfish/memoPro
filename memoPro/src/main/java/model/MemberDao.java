@@ -1,8 +1,11 @@
 package model;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,46 +14,47 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jdbc.JdbcUtil;
 import vo.Member;
 
 public class MemberDao {
-	//Map을 이용해 임시로 구현================================
-	Map<String, String> memberMap = new HashMap<>();
-	Map<String, Date> regDateMap = new HashMap<>();
-	Set<String> idSet = memberMap.keySet();
-	//=================================================
-	
-	
-	public Member selectById(String id) throws SQLException {
-		//=====================임시 계정==============
-		Date date =new Date(0);
-		memberMap.put("a", "a");
-		regDateMap.put("a", date);
-		//==========================================
-		
 
-		Member member = null;
-		if (idSet.contains(id)) {
-			member = new Member(
-					 id,
-					 memberMap.get(id),
-					 regDateMap.get(id)
-					);
-		}
-		return member;
-	}
 	
-	private Date toDate() {
-		Date date = new Date(System.currentTimeMillis());
-		return date;
+	public Member selectById(Connection conn ,String id) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
+		try {
+			pstmt = conn.prepareStatement("select * from member where mem_id = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			Member member = null;
+			if(rs.next()) {
+				member = new Member (
+						rs.getString("mem_id"),
+						rs.getString("password"),
+						toDate(rs.getTimestamp("regdate"))
+						);
+			}
+			return member;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		} 
+	}
+
+	
+	private Date toDate(Timestamp date) {
+		return date == null? null: new Date(date.getTime());
 	}
 	
-	public void insert(Member mem) throws SQLException {
-		try {
-			memberMap.put(mem.getId(), mem.getPassword());
-			regDateMap.put(mem.getId(), toDate());
-		}catch (Exception e) {
+	public void insert(Connection conn ,Member mem) throws SQLException {
+		try (PreparedStatement pstmt = 
+				conn.prepareStatement("insert into member values(?,?,?)")){
+			pstmt.setString(1, mem.getId());
+			pstmt.setString(2, mem.getPassword());
+			pstmt.setTimestamp(3, new Timestamp(mem.getRegDate().getTime()));
+			pstmt.executeUpdate();
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package vo;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javax.management.ValueExp;
 
+import connection.ConnectionProvider;
 import model.LineDao;
 
 public class Memo {
@@ -27,20 +29,20 @@ public class Memo {
 		System.out.println("memo cons");
 		this.userid=userid;
 		setMemoid();
-		String lineid = lineDao.newLine(new Line(memoid));
-		this.line = lineDao.selectByLineId(memoid, lineid);
 	}
 	
 	public Memo(String userid, String memoid) throws SQLException {
 		this.userid = userid;
 		this.memoid = memoid;
-		String lineid = lineDao.newLine(new Line(memoid));
-		this.line = lineDao.selectByLineId(memoid, lineid);
 	}
 	public Memo(String userid, String memoid, String lineid) throws SQLException {
 		this.userid = userid;
 		this.memoid = memoid;
-		this.line = lineDao.selectByLineId(memoid, lineid);
+		try (Connection conn = ConnectionProvider.getConnection()){
+			this.line = lineDao.selectByLineId(conn, memoid, lineid);
+		} catch (SQLException  e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 

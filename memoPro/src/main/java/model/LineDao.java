@@ -1,7 +1,12 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
+import jdbc.JdbcUtil;
 import vo.Line;
 
 /*=============================
@@ -11,33 +16,50 @@ import vo.Line;
 
 public class LineDao {
 	
-	public Line selectByLineId(String memoid, String lineid) throws SQLException {
-		Line line = null;
-/*
-		if ( db에서 memoid속성이 'memoid'이면서 lineid속성이 'lineid'인 경우) {
+	public Line selectByLineId(Connection conn, String memoid, String lineid) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(
+					"select * from line where memoid=? and lineid=?");
+			pstmt.setString(1, memoid);
+			pstmt.setString(2, lineid);
+			rs = pstmt.executeQuery();
+			Line line = null;
 			
-			line = new Line (
-				memberid,
-				lineid,
-				db에서 해당하는 content
-			)
-	
- */
-		//////임시로 생성
-		if (memoid.equals("1") ) {
-			line = new Line(memoid,lineid,"ContentContentContentContent");
-		} else {
-			line = new Line (memoid);
+			if (rs.next()) {
+				String content = rs.getString("content");
+				line = new Line(memoid, lineid, content);
+			}
+			return line;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 		}
-		/////////db연동시 삭제
-		return line;
 	}
 	
-	public String newLine(Line line) throws SQLException {
-			//Db에 Line 객체 삽입
-		System.out.println("newline");
+	public String newLine(Connection conn, Line line) throws SQLException {
+		PreparedStatement pstmt = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		String memoid = line.getMemoid();
 		String lineid = line.getLineid();
-		return lineid;
+		String content = line.getContent();
+		
+		try {
+			pstmt = conn.prepareStatement(
+					"update line set content=? where memoid=? and lineid=?"
+					);
+			pstmt.setString(1, content);
+			pstmt.setString(2, memoid);
+			pstmt.setString(3, content);
+			pstmt.executeUpdate(); //반영된 행 갯수;
+			return null;
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
 	}
 	
 	public void writeLine(String memoid ,String lineid, String content) throws SQLException{

@@ -52,17 +52,12 @@ public class ViewHandler implements CommandHandler {
 			return FORM_VIEW;
 		}
 		
-		
-		
 		String userid = user.getId();
 		
-		System.out.println("ViewHandler ======= userid : "+userid);
-		System.out.println("ViewHandler ======= memoid : "+memoid);
+
 		
 		try {
 			Memo memo = viewService.view(userid, memoid);
-			System.out.println("vvvvv");
-			System.out.println(memo.getMemoid()+" ; ");
 			memo.setLineMap();
 			HashMap<String,Line> lineMap = memo.getLineMap();
 			HashMap<String,String> contentsMap = lineService.lineDistribute(lineMap);

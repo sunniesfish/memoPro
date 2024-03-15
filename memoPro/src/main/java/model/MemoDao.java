@@ -1,51 +1,66 @@
 package model;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 //===========================DB연동필요========
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import jdbc.JdbcUtil;
 import vo.Line;
 import vo.Memo;
 
 public class MemoDao {
-
-	public Memo selectByMemoId(String userid, String memoid) throws SQLException {
-
-		Memo memo = null;
-/* 
-		if ( db에서 userid가 'userid'이면서 memoid속성이 'memoid'인 경우 ) {
-			Db에서 lineid를 가져옴
-			memo = new Memo(userid, memoid, lineid)
+	
+	private LineDao lineDao = new LineDao();
+	
+	public Memo selectByMemoId(Connection conn,String userid, String memoid) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(
+					"select * from memo where id=? and memoid=?");
+			pstmt.setString(1, userid);
+			pstmt.setString(2, memoid);
+			rs = pstmt.executeQuery();
+			Memo memo = null;
+			if (rs.next()) {
+				String lineid = rs.getString("lineid");
+				if (lineid==null) {
+					Line line = new Line(memoid);
+					memo = new Memo(userid, memoid, line.getLineid());
+				} else {
+					memo = new Memo(userid, memoid, lineid);
+				}
+			}
+			return memo;
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 		}
-*/		
-		// 임시로 구현 ================================
-		if (memoid.equals("1")) {
-			memo = new Memo (userid,memoid);
-			
-			System.out.println("==sbm== case 1" + memo.getLine().getLineid());
-		} else {
-			memo = new Memo (userid);
-			String lineid = memo.getLine().getLineid();
-			System.out.println("userid : "+userid+" memoid : "+memo.getMemoid()+" lineid : "+lineid);
-		}
-		
-		//========================================
-		return memo;
 	}
 	
-	public String newMemo(Memo memo) throws SQLException {
-//		try {
-			// Db에 메모 개체 삽입
-			String memoid = memo.getMemoid();
-//		}catch (Exception e) {
-//		}
-		return memoid;
+	public String newMemo(Connection conn,String id, Memo memo) throws SQLException {
+		PreparedStatement pstmt = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String memoid = memo.getMemoid();
+		try {
+			pstmt = conn.prepareStatement(
+					"insert into memo"+
+							"(id, memoid)"+
+							"values (?,?)"
+					);
+			pstmt.setString(1, id);
+			pstmt.setString(2, memoid);
+			pstmt.executeUpdate(); //반영된 행 갯수;
+			return null;
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
 	}
-	
-	
-	
-	
-	
-	
 }

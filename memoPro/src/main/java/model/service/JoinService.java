@@ -1,34 +1,41 @@
 package model.service;
-//========================수정필요
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 
+import connection.ConnectionProvider;
+import jdbc.JdbcUtil;
 import model.MemberDao;
 import vo.Member;
 
-public class JoinService {
+public class JoinService { //완료
 	
 	private MemberDao memberDao = new MemberDao();
 	
 	public void join(JoinRequest joinReq) {
+		Connection conn = null;
 		try {
-			Member member = memberDao.selectById(joinReq.getId());
+			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
+			
+			Member member = memberDao.selectById(conn, joinReq.getId());
 			if (member != null) {
-				// rollback필요한가?
+				JdbcUtil.rollback(conn);
 				throw new DuplicateIdException();
 			}
 			
-			memberDao.insert(new Member(
+			memberDao.insert(conn, new Member(
 					joinReq.getId(),
 					joinReq.getPassword(),
 					new Date()
 					) );
+			conn.commit();
 		} catch (SQLException e) {
-			// rollback 필요한가?
+			JdbcUtil.rollback(conn);
 			throw new RuntimeException();
+		} finally {
+			JdbcUtil.close(conn);
 		}
-		
 	}
 	
 }

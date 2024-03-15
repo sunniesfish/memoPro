@@ -1,9 +1,11 @@
 package model.service;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import connection.ConnectionProvider;
 import model.MemoDao;
 import vo.Memo;
 
@@ -17,14 +19,13 @@ public class ViewService {
 	MemoDao memoDao = new MemoDao();	
 	
 	public Memo view(String userid, String memoid) {
-		try {
+		try (Connection conn = ConnectionProvider.getConnection()){
 			Memo memo = null;
-			if (memoid==null || memoid.equals("")) {
-				memoid = memoDao.newMemo(new Memo(userid));
-			}
-			System.out.println("viewservice memoid : "+memoid);
-			memo = memoDao.selectByMemoId(userid, memoid);
-			System.out.println("memoid : "+memo.getMemoid());
+			if (memoid==null || memoid.equals("")) { //-------------------새 메모를 생성하는 경우
+				memoid = memoDao.newMemo(conn, userid,new Memo(userid));
+			}	
+			
+			memo = memoDao.selectByMemoId(conn, userid, memoid);
 			return memo;
 		}catch (SQLException e) {
 			throw new RuntimeException(e);

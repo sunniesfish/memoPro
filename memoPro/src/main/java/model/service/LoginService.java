@@ -1,22 +1,22 @@
 package model.service;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import connection.ConnectionProvider;
 import model.MemberDao;
 import vo.Member;
 import vo.User;
 
-// Map을 이용해서 임시로 구현
-public class LoginService {
+public class LoginService {  //완성
 	
 	private MemberDao memberDao = new MemberDao();
 	
 	public User login(String id, String password) {
-		try {
-			Member member = memberDao.selectById(id);
-//			System.out.println(member.getId()); //===========================
+		try (Connection conn =ConnectionProvider.getConnection()){
+			Member member = memberDao.selectById(conn,id);
 			if(member == null) {
 				throw new LoginFailException();
 			}
