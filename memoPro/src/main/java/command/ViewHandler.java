@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.service.LineService;
 import model.service.ViewService;
 import vo.Line;
 import vo.Memo;
@@ -24,8 +23,7 @@ public class ViewHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/logout.do";
 	
 	private ViewService viewService = new ViewService();
-	private LineService lineService = new LineService();
-	
+
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -40,39 +38,39 @@ public class ViewHandler implements CommandHandler {
 	}
 
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
-		
 		String memoid = (String) req.getSession().getAttribute("memoid");
 		User user = (User) req.getSession().getAttribute("authUser");
+
+		if (memoid != null) {
+			System.out.println("memoid : "+memoid);
+		} else {
+			System.out.println("memoid is null");
+		}
 		
 		Map<String, Boolean> errors = new HashMap<>(); //ERROR MAP
 		req.setAttribute("errors",errors);
 		
-		if (user == null) {errors.put("user", Boolean.TRUE);}
+		if (user == null) {
+			errors.put("user", Boolean.TRUE);}
 		if(!errors.isEmpty()) {
 			return FORM_VIEW;
 		}
-		
 		String userid = user.getId();
 		
 
-		
 		try {
 			Memo memo = viewService.view(userid, memoid);
 			memo.setLineMap();
-			HashMap<String,Line> lineMap = memo.getLineMap();
-			HashMap<String,String> contentsMap = lineService.lineDistribute(lineMap);
-			
+			HashMap<String,String> lineMap = memo.getLineMap();
 			
 			req.setAttribute("memo", memo);
 			req.setAttribute("linemap",lineMap);	
-			req.setAttribute("contentsmap", contentsMap);
+			req.getSession().setAttribute("memoid", memo.getMemoid());
 			
-			
+			System.out.println("==================================");
 			return "/views/screens/memoView.jsp";
 		}catch (Exception e) {
 			return FORM_VIEW;
 		}
-		
 	}
-
 }

@@ -1,7 +1,10 @@
 package model.service;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
+import connection.ConnectionProvider;
+import jdbc.JdbcUtil;
 import model.LineDao;
 
 public class WriteService {
@@ -14,17 +17,20 @@ public class WriteService {
 		String lineid = writeReq.getLineid();
 		String content = writeReq.getContent();
 
-		
+		Connection conn = null;
 		try {
-			lineDao.writeLine(memoid, lineid, content);
+			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
+			
+			lineDao.writeLine(conn ,memoid, lineid, content);
 			
 			throw new SQLException();
 		} catch (SQLException  e) {
-			//rollback ÇÊ¿ä?
+			JdbcUtil.rollback(conn);
 			throw new RuntimeException();
+		} finally {
+			JdbcUtil.close(conn);
 		}
-		
-		
 	}
 
 }

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 public class LogoutHandler implements CommandHandler {
 	
-	private static final String FORM_VIEW = "/views/screens/loginPage.jsp";
+	private static final String FORM_VIEW = "/memoPro/views/screens/loginPage.jsp";
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {

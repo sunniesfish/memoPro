@@ -36,6 +36,8 @@ public class MemberDao {
 						toDate(rs.getTimestamp("regdate"))
 						);
 			}
+			
+			
 			return member;
 		} finally {
 			JdbcUtil.close(rs);
@@ -58,16 +60,6 @@ public class MemberDao {
 		}
 	}
 	
-	public List getMemoList(String userid) throws SQLException {
-//		try {
-			/*
-			 * DB에서 userid를 통해 memoid를 가져옴
-			 */
-			List<String> memoList = new ArrayList();// db연결 후 수정
-			memoList.add("1");// db연결 후 수정
-//		} catch (Exception e) {
-//		}
-		return memoList;
-	}
+
 }
  

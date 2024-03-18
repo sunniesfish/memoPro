@@ -24,9 +24,8 @@ public class ViewService {
 			if (memoid==null || memoid.equals("")) { //-------------------새 메모를 생성하는 경우
 				memoid = memoDao.newMemo(conn, userid,new Memo(userid));
 			}	
-			
 			memo = memoDao.selectByMemoId(conn, userid, memoid);
-			return memo;
+			return memo;	
 		}catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

@@ -9,7 +9,7 @@
 <context-param>
 	<param-name>poolConfig</param-name>
 	<param-value>
-		jdbcdriver=com.mysql.jdbc.Driver
+		jdbcdriver=com.mysql.cj.jdbc.Driver
 		jdbcUrl=jdbc:mysql://localhost:3306/selfstudy?characterEncodig=utf8
 		dbUser=self01
 		dbPass=selfpro01

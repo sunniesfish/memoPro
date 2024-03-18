@@ -20,6 +20,7 @@ public class LineDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
+			
 			pstmt = conn.prepareStatement(
 					"select * from line where memoid=? and lineid=?");
 			pstmt.setString(1, memoid);
@@ -30,6 +31,8 @@ public class LineDao {
 			if (rs.next()) {
 				String content = rs.getString("content");
 				line = new Line(memoid, lineid, content);
+			} else {
+				line = newLine(conn, new Line(memoid, lineid,"*"));
 			}
 			return line;
 		} finally {
@@ -38,39 +41,51 @@ public class LineDao {
 		}
 	}
 	
-	public String newLine(Connection conn, Line line) throws SQLException {
+	public Line newLine(Connection conn, Line line) throws SQLException {
+		System.out.println("new Line =============");
 		PreparedStatement pstmt = null;
-		Statement stmt = null;
+		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
 		
 		String memoid = line.getMemoid();
 		String lineid = line.getLineid();
 		String content = line.getContent();
 		
+		System.out.println("memoid : "+memoid+"  lineid : "+lineid+"  content : "+content);
+		
 		try {
+			System.out.println("new Line try block");
 			pstmt = conn.prepareStatement(
-					"update line set content=? where memoid=? and lineid=?"
+					"insert into  line values (?,?,?)"
 					);
-			pstmt.setString(1, content);
-			pstmt.setString(2, memoid);
+			pstmt.setString(1, memoid);
+			pstmt.setString(2, lineid);
 			pstmt.setString(3, content);
-			pstmt.executeUpdate(); //반영된 행 갯수;
-			return null;
+			pstmt.executeUpdate();
+			
+			pstmt2 = conn.prepareStatement(
+					"update memo set lineid=? where memoid=?");
+			pstmt2.setString(1, lineid);
+			pstmt2.setString(2, memoid);
+			pstmt2.executeUpdate();
+		
+			return line;
 		}finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 		}
 	}
 	
-	public void writeLine(String memoid ,String lineid, String content) throws SQLException{
+	public void writeLine(Connection conn ,String memoid ,String lineid, String content) throws SQLException{
+		PreparedStatement pstmt = null;
 		try {
-			/*
-			 *DB에 연결하여 contents를 update
-			 * 
-			 */
-			Line line = new Line(memoid ,lineid, content);
-			System.out.println("writeLine");
-		}catch (Exception e) {
+			pstmt = conn.prepareStatement( "update line set content=? where memoid=? and lineid=?" );
+			pstmt.setString(1, content);
+			pstmt.setString(2, memoid);
+			pstmt.setString(3, lineid);
+			pstmt.executeUpdate();
+		} finally {
+			JdbcUtil.close(pstmt);
 		}
 	}
 	

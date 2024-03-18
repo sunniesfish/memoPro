@@ -17,7 +17,7 @@ public class LoginService {  //¿Ï¼º
 	public User login(String id, String password) {
 		try (Connection conn =ConnectionProvider.getConnection()){
 			Member member = memberDao.selectById(conn,id);
-			if(member == null) {
+			if(member == null) { 
 				throw new LoginFailException();
 			}
 			if(!member.matchPassword(password)) {

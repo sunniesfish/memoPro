@@ -29,12 +29,9 @@
 			<a href="tosession.do?memoid=" >
 				<div class="memos_contetns_newmemo">New Memo</div>
 			</a>
-			<a href="tosession.do?memoid=${1}" >
-				<div class="memos_contetns_today">Today's Memo</div>
-			</a>
 			<c:forEach var="memoid" items="${memolist}">
 				<c:if test="${memoid ne '1'}">
-					<a href="tosession.do?memoid=${memoid}" >
+					<a href="tosession.do?memoid=${memoid}"  >
 						<div class="memos_contetns_line">${memoid}</div>
 					</a>
 				</c:if>

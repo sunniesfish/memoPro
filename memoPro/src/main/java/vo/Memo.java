@@ -22,7 +22,7 @@ public class Memo {
 	private Line line;
 	
 	private LineDao lineDao = new LineDao();
-	private HashMap<String,Line> lineMap = new HashMap();
+	private HashMap<String,String> lineMap = new HashMap();
 	
 	
 	public Memo(String userid) throws SQLException {
@@ -39,6 +39,7 @@ public class Memo {
 		this.userid = userid;
 		this.memoid = memoid;
 		try (Connection conn = ConnectionProvider.getConnection()){
+			
 			this.line = lineDao.selectByLineId(conn, memoid, lineid);
 		} catch (SQLException  e) {
 			throw new RuntimeException(e);
@@ -56,13 +57,13 @@ public class Memo {
 	}
 	
 	public Line getLine() {
+		System.out.println("getLine");
 		return line;
 	}
 	public void setLine(Line line) {
 		this.line = line;
 	}
 	
-
 	public HashMap getLineMap() {
 		return lineMap;
 	}
@@ -70,7 +71,7 @@ public class Memo {
 	
 	public void setLineMap() {
 		System.out.println("setlinmap");
-		lineMap.put(line.getLineid(), line);
+		lineMap.put(memoid, line.getContent());
 	}
 	
 }

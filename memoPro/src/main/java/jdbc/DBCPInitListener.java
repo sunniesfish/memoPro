@@ -11,22 +11,15 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.tomcat.dbcp.dbcp2.ConnectionFactory;
-import org.apache.tomcat.dbcp.dbcp2.DriverManagerConnectionFactory;
-import org.apache.tomcat.dbcp.dbcp2.PoolableConnection;
-import org.apache.tomcat.dbcp.dbcp2.PoolableConnectionFactory;
-import org.apache.tomcat.dbcp.dbcp2.PoolingDriver;
-import org.apache.tomcat.dbcp.pool2.impl.GenericObjectPool;
-import org.apache.tomcat.dbcp.pool2.impl.GenericObjectPoolConfig;
 
-/*import org.apache.commons.dbcp2.ConnectionFactory;
+import org.apache.commons.dbcp2.ConnectionFactory;
 import org.apache.commons.dbcp2.DriverManagerConnectionFactory;
 import org.apache.commons.dbcp2.PoolableConnection;
 import org.apache.commons.dbcp2.PoolableConnectionFactory;
 import org.apache.commons.dbcp2.PoolingDriver;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
-*/
+
 @WebListener
 public class DBCPInitListener extends HttpServlet implements ServletContextListener {
        
@@ -82,7 +75,7 @@ public class DBCPInitListener extends HttpServlet implements ServletContextListe
 			
 			Class.forName("org.apache.commons.dbcp2.PoolingDriver");
 			PoolingDriver driver = (PoolingDriver)
-					DriverManager.getDriver("jdbc:apache:commons:dbcp");
+					DriverManager.getDriver("jdbc:apache:commons:dbcp:");
 			String poolName = prop.getProperty("poolName");
 			driver.registerPool(poolName, connectionPool);
 		} catch (Exception e) {
