@@ -26,7 +26,6 @@ public class Memo {
 	
 	
 	public Memo(String userid) throws SQLException {
-		System.out.println("memo cons");
 		this.userid=userid;
 		setMemoid();
 	}
@@ -57,7 +56,6 @@ public class Memo {
 	}
 	
 	public Line getLine() {
-		System.out.println("getLine");
 		return line;
 	}
 	public void setLine(Line line) {
@@ -70,7 +68,6 @@ public class Memo {
 	
 	
 	public void setLineMap() {
-		System.out.println("setlinmap");
 		lineMap.put(memoid, line.getContent());
 	}
 	

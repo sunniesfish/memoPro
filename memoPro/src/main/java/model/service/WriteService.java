@@ -11,21 +11,22 @@ public class WriteService {
 	
 	LineDao lineDao = new LineDao();
 	
-	public void write(WriteRequest writeReq) {
+	public void write(WriteRequest writeReq)  {
 		
 		String memoid = writeReq.getMemoid();
-		String lineid = writeReq.getLineid();
 		String content = writeReq.getContent();
+		
+		int i=0;
 
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			conn.setAutoCommit(false);
+			lineDao.writeLine(conn ,memoid, content);
+			conn.commit();
 			
-			lineDao.writeLine(conn ,memoid, lineid, content);
-			
-			throw new SQLException();
 		} catch (SQLException  e) {
+			System.out.println(i);
 			JdbcUtil.rollback(conn);
 			throw new RuntimeException();
 		} finally {

@@ -36,7 +36,6 @@ public class Member {
 	}
 	
 	public boolean matchPassword(String password) {
-		return password.equals(password);
+		return this.password.equals(password);
 	}
-	
 }

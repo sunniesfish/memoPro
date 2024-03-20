@@ -25,6 +25,7 @@ public class ViewService {
 				memoid = memoDao.newMemo(conn, userid,new Memo(userid));
 			}	
 			memo = memoDao.selectByMemoId(conn, userid, memoid);
+			System.out.println("service lineid"+memo.getLine().getContent());
 			return memo;	
 		}catch (SQLException e) {
 			throw new RuntimeException(e);

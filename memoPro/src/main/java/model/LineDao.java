@@ -42,7 +42,6 @@ public class LineDao {
 	}
 	
 	public Line newLine(Connection conn, Line line) throws SQLException {
-		System.out.println("new Line =============");
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
@@ -51,10 +50,9 @@ public class LineDao {
 		String lineid = line.getLineid();
 		String content = line.getContent();
 		
-		System.out.println("memoid : "+memoid+"  lineid : "+lineid+"  content : "+content);
+		
 		
 		try {
-			System.out.println("new Line try block");
 			pstmt = conn.prepareStatement(
 					"insert into  line values (?,?,?)"
 					);
@@ -76,15 +74,14 @@ public class LineDao {
 		}
 	}
 	
-	public void writeLine(Connection conn ,String memoid ,String lineid, String content) throws SQLException{
+	public void writeLine(Connection conn ,String memoid , String content) throws SQLException{
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement( "update line set content=? where memoid=? and lineid=?" );
+			pstmt = conn.prepareStatement( "update line set content=? where memoid=?" );
 			pstmt.setString(1, content);
 			pstmt.setString(2, memoid);
-			pstmt.setString(3, lineid);
 			pstmt.executeUpdate();
-		} finally {
+		}finally {
 			JdbcUtil.close(pstmt);
 		}
 	}

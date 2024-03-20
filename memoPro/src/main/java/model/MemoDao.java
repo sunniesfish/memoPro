@@ -33,17 +33,14 @@ public class MemoDao {
 			Memo memo = null;
 			if (rs.next()) {
 				String lineid = rs.getString("lineid");
-				System.out.println("rs.next lineid : "+lineid);
 				if (lineid==null) {
 					Line line = new Line(memoid);
 					lineDao.newLine(conn, line);
 					memo = new Memo(userid, memoid, line.getLineid());
 				} else {
-					System.out.println("lineid not null");
 					memo = new Memo(userid, memoid, lineid);
 				}
 			}
-			
 			
 			return memo;
 		} finally {
@@ -53,6 +50,7 @@ public class MemoDao {
 	}
 	
 	public String newMemo(Connection conn,String id, Memo memo) throws SQLException {
+		System.out.println("newmemo");
 		PreparedStatement pstmt = null;
 		Statement stmt = null;
 		ResultSet rs = null;

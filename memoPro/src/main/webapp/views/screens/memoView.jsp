@@ -26,8 +26,8 @@
 			<c:forEach var="entry" items="${linemap}">
 				<c:if test="${entry.key eq memoid}">
 					<div class="view_contents_line">
-						<form action="write.do" method="post" name="content" >
-							<input class="view_contents_text" name="" type="text" value="${entry2.value}"/>
+						<form action="write.do" method="post">
+							<input class="view_contents_text" name="content" type="text" value="${entry.value}"/>
 							<input type="submit" value="save"/>
 						</form>
 					</div>

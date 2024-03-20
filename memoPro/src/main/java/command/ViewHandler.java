@@ -41,11 +41,6 @@ public class ViewHandler implements CommandHandler {
 		String memoid = (String) req.getSession().getAttribute("memoid");
 		User user = (User) req.getSession().getAttribute("authUser");
 
-		if (memoid != null) {
-			System.out.println("memoid : "+memoid);
-		} else {
-			System.out.println("memoid is null");
-		}
 		
 		Map<String, Boolean> errors = new HashMap<>(); //ERROR MAP
 		req.setAttribute("errors",errors);
@@ -67,7 +62,6 @@ public class ViewHandler implements CommandHandler {
 			req.setAttribute("linemap",lineMap);	
 			req.getSession().setAttribute("memoid", memo.getMemoid());
 			
-			System.out.println("==================================");
 			return "/views/screens/memoView.jsp";
 		}catch (Exception e) {
 			return FORM_VIEW;
