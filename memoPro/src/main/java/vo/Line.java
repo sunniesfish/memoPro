@@ -33,7 +33,7 @@ public class Line {
 	}
 	public void setLineid() {
 		long now = System.currentTimeMillis();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		this.lineid = sdf.format(new Date(now)).toString();
 	}
 	

@@ -1,5 +1,7 @@
 package jdbc;
-
+/*
+ *Connection, ResultSet, Statement의 종료 및 롤백
+ */
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

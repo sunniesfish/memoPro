@@ -51,7 +51,7 @@ public class Memo {
 	}
 	public void setMemoid() {
 		long now = System.currentTimeMillis();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		this.memoid = sdf.format(new Date(now)).toString();
 	}
 	
