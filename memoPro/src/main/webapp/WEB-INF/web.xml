@@ -9,7 +9,7 @@
 <context-param>
 	<param-name>poolConfig</param-name>
 	<param-value>
-		jdbcdriver=com.mysql.cj.jdbc.Driver <!-- connectior j 7? 버전 이후부터는 주소에 cj추가됨 -->
+		jdbcdriver=com.mysql.cj.jdbc.Driver<!-- connector j 8버전 이후부터는 중간에 cj가 들어감 -->
 		jdbcUrl=jdbc:mysql://localhost:3306/selfstudy?characterEncodig=utf8
 		dbUser=self01
 		dbPass=selfpro01

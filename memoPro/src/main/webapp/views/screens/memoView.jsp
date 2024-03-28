@@ -25,7 +25,7 @@
 		<div class="view_contents">
 			<c:forEach var="entry" items="${linemap}">
 				<c:if test="${entry.key eq memoid}">
-					<div class="view_contents_line">
+					<div class="view_contents_line" id="${entry.key}">
 						<form action="write.do" method="post">
 							<input class="view_contents_text" name="content" type="text" value="${entry.value}"/>
 							<input type="submit" value="save"/>
@@ -35,5 +35,6 @@
 			</c:forEach>
 		</div>
 		<script src="https://kit.fontawesome.com/9e2cfcdf3a.js" crossorigin="anonymous"></script>
+		<script type=""></script>
 	</body>
 </html>

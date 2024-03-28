@@ -34,7 +34,7 @@ public class DBCPInitListener extends HttpServlet implements ServletContextListe
 		} catch (IOException e) {
 			throw new RuntimeException("config load fail", e);
 		}
-		loadJDBCDriver(prop); 
+		loadJDBCDriver(prop);
 		initConnectionPool(prop);
 	}
 	
