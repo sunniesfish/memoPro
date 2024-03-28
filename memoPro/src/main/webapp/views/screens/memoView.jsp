@@ -35,6 +35,6 @@
 			</c:forEach>
 		</div>
 		<script src="https://kit.fontawesome.com/9e2cfcdf3a.js" crossorigin="anonymous"></script>
-		<script type=""></script>
+	
 	</body>
 </html>

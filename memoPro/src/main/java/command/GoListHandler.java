@@ -32,7 +32,7 @@ public class GoListHandler implements CommandHandler {
 		
 		List<String> memoList = goListService.bringList(userid);
 		req.setAttribute("memolist",memoList);
-		System.out.println(memoList.toString());
+		System.out.println("golisthandler ¿Ï·á"+memoList.toString());
 		return "/views/screens/memos.jsp";
 	}
 }

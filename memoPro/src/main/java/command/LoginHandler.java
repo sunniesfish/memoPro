@@ -54,7 +54,7 @@ public class LoginHandler extends HttpServlet implements CommandHandler {
 			User user = loginService.login(id, password);
 			req.getSession().setAttribute("authUser", user);
 			
-			
+			System.out.println("login handler 완료");
 			return "/golist.do"; // 로그인 서비스를 호출하여 로그인, 세션의 로그인 정보 저장, MAIN으로 이동
 		} catch (LoginFailException e) { //ID PWD가 맞지 않을 경우 로그인 페이지로 되돌아감
 			System.out.println("login fail");
